@@ -67,7 +67,7 @@ def latestCards(bulkInfo):
         return fetchCards(bulkInfo)
 
 
-def fetchJson(creaturesOnly):
+def fetchJson(creaturesOnly=True):
     # get bulk information
     bulkInfo = fetchBulkInfo()
 
