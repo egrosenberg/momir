@@ -21,13 +21,14 @@ def downloadArt(card):
 
 
 # ------------------------------------------------------------
-# Returns the art crop of a given card as a PIL image
+# Returns a local path to the art crop of an image
 # ------------------------------------------------------------
 def getArt(card):
     # check for existing local image
     path = os.path.join(IMAGES_DIR, f'{card["id"]}.jpg')
     cached = os.path.isfile(path)
     if cached:
-        return Image.open(path)
+        return path
     else:
-        return downloadArt(card)
+        downloadArt(card)
+        return path
