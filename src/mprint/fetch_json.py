@@ -6,6 +6,8 @@ import datetime
 PREFERRED_JSON = 'oracle_cards'
 JSON_PATH = 'json/cards.json'
 
+loadedCards = None
+
 
 def fetchBulkInfo():
     # Filter function to find preferred json from scryfall bulk
@@ -56,18 +58,27 @@ def latestCards(bulkInfo):
         print(f'Found JSON data at "{JSON_PATH}"')
         if lastUpdated < remoteLastUpdated.timestamp():
             print("Local JSON is outdated")
-            return fetchCards(bulkInfo)
+            if bulkInfo:
+                return fetchCards(bulkInfo)
+            print('WARN - Unable to reach scryfall api, using outdated JSON')
         with open(JSON_PATH, 'r') as file:
             data = json.load(file)
             print(f'{len(data)} cards successfully loaded from "{JSON_PATH}"')
             file.close()
             return data
     except FileNotFoundError:
+        if not bulkInfo:
+            print('ERROR - no local JSON and unable to connect to API')
         print(f'{JSON_PATH} not found, creating new file...')
         return fetchCards(bulkInfo)
 
 
 def fetchJson(creaturesOnly=True):
+    global loadedCards
+    if loadedCards:
+        return loadedCards
+
+    print("Loading card JSON...")
     # get bulk information
     bulkInfo = fetchBulkInfo()
 
@@ -101,6 +112,6 @@ def fetchJson(creaturesOnly=True):
         return inPaper(card) and notMultiVersioned(card)
 
     cards = list(filter(finalFilter, scryfallCards))
-
+    loadedCards = cards
     # Return json object
     return cards
