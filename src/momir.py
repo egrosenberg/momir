@@ -11,7 +11,7 @@ def momir():
             if n == "e" or n == "exit":
                 break
             try:
-                filter = {"mana_value": int(n)}
+                filter = {"cmc": int(n)}
                 card = mprint.getRandomCard(cards, filter)
                 mprint.printCard(printer, card)
             except ValueError:

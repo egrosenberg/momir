@@ -4,26 +4,30 @@ from random import randint
 PARTIAL_MATCH_KEYS = ["flavor_text", "oracle_text", "type_line", ]
 
 
-def filterCards(cards, filter={}):
+def match(a, b, partialMatch=False):
+    if isinstance(a, str):
+        a = a.lower()
+    if isinstance(b, str):
+        b = b.lower()
+    if partialMatch:
+        return a in b or b in a
+    return a == b
+
+
+def filterCards(cards, filterDict={}):
     def filterFn(card):
-        for key, value in filter:
+        for key, value in filterDict.items():
             if key not in card:
                 return False
-            cardVal = card[key]
-            if isinstance(cardVal, str):
-                cardVal = cardVal.lower()
-                value = value.lower()
-            if key in PARTIAL_MATCH_KEYS:
-                if value not in cardVal:
-                    return False
-            if value != cardVal:
+            partialMatch = key in PARTIAL_MATCH_KEYS
+            if not match(value, card[key], partialMatch):
                 return False
         return True
     return list(filter(filterFn, cards))
 
 
-def getRandomCard(cards, filter={}):
-    filtered = filterCards(cards, filter)
+def getRandomCard(cards, filterDict={}):
+    filtered = filterCards(cards, filterDict)
     count = len(filtered)
     if count == 0:
         print("NO CARD FOUND MATCHING FILTER")
@@ -31,8 +35,8 @@ def getRandomCard(cards, filter={}):
     return filtered[randint(0, count-1)]
 
 
-def getCard(cards, filter={}):
-    filtered = filterCards(cards, filter)
+def getCard(cards, filterDict={}):
+    filtered = filterCards(cards, filterDict)
     if len(filtered) == 0:
         print("NO CARD FOUND MATCHING FILTER")
         return DEFAULT_CARD
