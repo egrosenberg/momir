@@ -1,11 +1,7 @@
-from escpos.printer import Usb
-from .constants import USB_ID_VENDOR, USB_ID_PRODUCT
 from .get_image import getArt
 
 
 def printCard(printer, card):
-    printer = Usb(USB_ID_VENDOR, USB_ID_PRODUCT, 0, profile="TM-T88III")
-    printer.open()
     img = getArt(card, 256)
     printer.set(bold=True, align="left")
     printer.textln(card["name"])
