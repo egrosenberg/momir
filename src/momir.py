@@ -1,4 +1,4 @@
-import mprint
+from . import mprint
 
 
 def momir():
