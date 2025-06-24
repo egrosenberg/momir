@@ -1,4 +1,5 @@
 from random import randint
+from .constants import DEFAULT_CARD
 
 
 # ------------------------------------------------------------
@@ -20,5 +21,5 @@ def randomByMv(cards, mv):
     count = len(filtered)
     if count == 0:
         print(f"NO CARDS FOUND AT MV {mv}")
-        return cards[0]
+        return DEFAULT_CARD
     return filtered[randint(0, count-1)]
