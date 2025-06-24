@@ -15,10 +15,14 @@ def printCard(printer, card):
     printer.textln()
     printer.set(underline=False)
     printer.textln(card["oracle_text"])
-    if ("flavor_text" in card):
+    if ("flavor_text" in card and len(card["flavor_text"])):
         printer.set(align="center")
         printer.textln("-------------------------")
         printer.set(align="left")
         printer.set(font="b")
         printer.textln(card["flavor_text"])
         printer.set(font="a")
+    printer.set(bold=True, align="right")
+    printer.textln(f'{card["power"]}/{card["toughness"]}')
+    printer.set(bold=False, align="left")
+    printer.text('\n\n\n')
