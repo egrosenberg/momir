@@ -13,6 +13,8 @@ DEFAULT_CARD = {
         "art_crop": ("https://cards.scryfall.io/art_crop/front/e/6/" +
                      "e6d7fba8-a157-4d81-9d6b-bd210a96b248.jpg?1623189417")
     },
+    "oracle_text": "what exactly... did you expect to find here?",
+    "flavor_text": "...i hope it was nothing"
 }
 
 __all__ = ['USB_ID_VENDOR', 'USB_ID_PRODUCT',]
