@@ -1,13 +1,22 @@
 from .constants import DEFAULT_CARD
 from random import randint
 
+PARTIAL_MATCH_KEYS = ["flavor_text", "oracle_text", "type_line", ]
+
 
 def filterCards(cards, filter={}):
     def filterFn(card):
         for key, value in filter:
             if key not in card:
                 return False
-            if value != card[key]:
+            cardVal = card[key]
+            if isinstance(cardVal, str):
+                cardVal = cardVal.lower()
+                value = value.lower()
+            if key in PARTIAL_MATCH_KEYS:
+                if value not in cardVal:
+                    return False
+            if value != cardVal:
                 return False
         return True
     return list(filter(filterFn, cards))
