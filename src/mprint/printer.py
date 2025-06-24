@@ -10,6 +10,7 @@ def getPrinter():
         return printer
     printer = Usb(USB_ID_VENDOR, USB_ID_PRODUCT, 0, profile="TM-T88III")
     printer.open()
+    return printer
 
 
 def closePrinter():
