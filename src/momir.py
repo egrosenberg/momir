@@ -11,7 +11,8 @@ def momir():
             if n == "e" or n == "exit":
                 break
             try:
-                card = mprint.randomByMv(cards, int(n))
+                filter = {"mana_value": int(n)}
+                card = mprint.getRandomCard(cards, filter)
                 mprint.printCard(printer, card)
             except ValueError:
                 print("Invalid input. If you would like to exit, enter 'e'.")
