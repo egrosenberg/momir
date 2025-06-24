@@ -35,5 +35,5 @@ def getArt(card, maxSize=512):
     width, height = img.size
     ratio = min(maxSize/width, maxSize/height)
     size = (width*ratio, height*ratio)
-    img.thumbnail(size, Image.Resampling.LANCZOS)
+    img.thumbnail(size)
     return img
