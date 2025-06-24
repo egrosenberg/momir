@@ -21,14 +21,19 @@ def downloadArt(card):
 
 
 # ------------------------------------------------------------
-# Returns a local path to the art crop of an image
+# Returns the art crop of a given card as a PIL image
 # ------------------------------------------------------------
-def getArt(card):
+def getArt(card, maxSize=512):
     # check for existing local image
     path = os.path.join(IMAGES_DIR, f'{card["id"]}.jpg')
     cached = os.path.isfile(path)
     if cached:
-        return path
+        img = Image.open(path)
     else:
-        downloadArt(card)
-        return path
+        img = downloadArt(card)
+    # resize image
+    width, height = img.size
+    ratio = min(maxSize/width, maxSize/height)
+    size = (width*ratio, height*ratio)
+    img.thumbnail(size, Image.Resampling.LANCZOS)
+    return img
