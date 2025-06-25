@@ -1,15 +1,16 @@
 from .get_image import getArt
 
 
-def printCard(printer, card):
-    img = getArt(card, 256)
+def printCard(printer, card, artOverride=None):
+    img = artOverride or getArt(card, 256)
     printer.set(bold=True, align="left")
     printer.textln(card["name"])
     printer.set(bold=False, align="right")
     printer.textln(card["mana_cost"])
-    printer.set(align="center")
-    printer.image(img, fragment_height=50)
-    printer.textln()
+    if img:
+        printer.set(align="center")
+        printer.image(img, fragment_height=50)
+        printer.textln()
     printer.set(align="left", underline=True)
     printer.textln(card["type_line"])
     printer.textln()

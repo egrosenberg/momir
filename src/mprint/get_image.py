@@ -2,6 +2,7 @@ import os
 import io
 import requests
 from PIL import Image
+from .constants import DEFAULT_CARD
 
 IMAGES_DIR = 'img/'
 
@@ -23,7 +24,7 @@ def downloadArt(card):
 # ------------------------------------------------------------
 # Returns the art crop of a given card as a PIL image
 # ------------------------------------------------------------
-def getArt(card, maxSize=512):
+def getArt(card, maxSize=256):
     # check for existing local image
     path = os.path.join(IMAGES_DIR, f'{card["id"]}.jpg')
     cached = os.path.isfile(path)
@@ -31,6 +32,13 @@ def getArt(card, maxSize=512):
         img = Image.open(path)
     else:
         img = downloadArt(card)
+        if not img:
+            # attempt to use default card image
+            dPath = os.path.join(IMAGES_DIR, f'{DEFAULT_CARD["id"]}.jpg')
+            backupExists = os.path.isfile(dPath)
+            if not backupExists:
+                return False
+            img = Image.open(dPath)
     # resize image
     width, height = img.size
     ratio = min(maxSize/width, maxSize/height)
