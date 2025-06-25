@@ -51,6 +51,19 @@ def fetchCards(bulkInfo):
 
 
 def latestCards(bulkInfo):
+    if not bulkInfo:
+        print("Loading cards in OFFLINE mode...")
+        try:
+            with open(JSON_PATH, 'r') as file:
+                data = json.load(file)
+                print(f'{len(data)} cards successfully',
+                      f' loaded from "{JSON_PATH}"')
+                file.close()
+                return data
+        except FileNotFoundError:
+            print('ERROR - no local JSON and running offline')
+            return []
+
     print("Loading latest cards...")
     remoteLastUpdated = datetime.datetime.fromisoformat(bulkInfo["updated_at"])
     try:
@@ -69,18 +82,19 @@ def latestCards(bulkInfo):
     except FileNotFoundError:
         if not bulkInfo:
             print('ERROR - no local JSON and unable to connect to API')
+            return []
         print(f'{JSON_PATH} not found, creating new file...')
         return fetchCards(bulkInfo)
 
 
-def fetchJson(creaturesOnly=True, unfiltered=False):
+def fetchJson(creaturesOnly=True, unfiltered=False, offline=False):
     global loadedCards
     if loadedCards:
         return loadedCards
 
     print("Loading card JSON...")
     # get bulk information
-    bulkInfo = fetchBulkInfo()
+    bulkInfo = fetchBulkInfo() if not offline else False
 
     # Get cards json
     scryfallCards = latestCards(bulkInfo)

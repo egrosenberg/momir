@@ -107,10 +107,10 @@ def createToken(cards, printer):
         input("Tear token and press enter to continue...")
 
 
-def tokenCreator():
+def tokenCreator(offline=False):
     printer = mprint.getPrinter()
-    cards = mprint.fetchJson(creaturesOnly=True)
-    print("Entering Token Mode - Enter 'e' or 'escape' at any time to stop")
+    cards = mprint.fetchJson(creaturesOnly=False, offline=offline)
+    print("Entering Token Mode - press ctrl+c to exit")
     try:
         while True:
             createToken(cards, printer)

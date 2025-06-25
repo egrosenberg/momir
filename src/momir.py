@@ -1,9 +1,9 @@
 from . import mprint
 
 
-def momir():
+def momir(offline=False):
     printer = mprint.getPrinter()
-    cards = mprint.fetchJson(creaturesOnly=True)
+    cards = mprint.fetchJson(creaturesOnly=True, offline=offline)
     print("Entering Momir Mode - Enter 'e' or 'escape' at any time to stop")
     try:
         while True:
@@ -13,6 +13,7 @@ def momir():
             try:
                 filter = {"cmc": int(n)}
                 card = mprint.getRandomCard(cards, filter)
+                card["type_line"] = "Token " + card["type_line"]
                 mprint.printCard(printer, card)
             except ValueError:
                 print("Invalid input. If you would like to exit, enter 'e'.")
