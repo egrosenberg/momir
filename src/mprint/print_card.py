@@ -24,6 +24,7 @@ def printCard(printer, card, artOverride=None):
         printer.textln(card["flavor_text"])
         printer.set(font="a")
     printer.set(bold=True, align="right")
-    printer.textln(f'{card["power"]}/{card["toughness"]}')
+    if "power" in card and "toughness" in card:
+        printer.textln(f'{card["power"]}/{card["toughness"]}')
     printer.set(bold=False, align="left")
     printer.text('\n\n\n')

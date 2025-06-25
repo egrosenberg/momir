@@ -73,7 +73,7 @@ def latestCards(bulkInfo):
         return fetchCards(bulkInfo)
 
 
-def fetchJson(creaturesOnly=True):
+def fetchJson(creaturesOnly=True, unfiltered=False):
     global loadedCards
     if loadedCards:
         return loadedCards
@@ -84,6 +84,9 @@ def fetchJson(creaturesOnly=True):
 
     # Get cards json
     scryfallCards = latestCards(bulkInfo)
+
+    if unfiltered:
+        return scryfallCards
 
     # filter cards
     def inPaper(card):
