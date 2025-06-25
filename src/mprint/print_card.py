@@ -13,10 +13,11 @@ def printCard(printer, card, artOverride=None):
         printer.textln()
     printer.set(align="left", underline=True)
     printer.textln(card["type_line"])
-    printer.textln()
     printer.set(underline=False)
-    printer.textln(card["oracle_text"])
-    if ("flavor_text" in card and len(card["flavor_text"])):
+    if "oracle_text" in card and len(card["oracle_text"]):
+        printer.textln()
+        printer.textln(card["oracle_text"])
+    if "flavor_text" in card and len(card["flavor_text"]):
         printer.set(align="center")
         printer.textln("-------------------------")
         printer.set(align="left")
@@ -27,4 +28,4 @@ def printCard(printer, card, artOverride=None):
     if "power" in card and "toughness" in card:
         printer.textln(f'{card["power"]}/{card["toughness"]}')
     printer.set(bold=False, align="left")
-    printer.text('\n\n\n')
+    printer.text('\n\n')
