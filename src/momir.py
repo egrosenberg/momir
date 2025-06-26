@@ -1,4 +1,13 @@
 from . import mprint
+from .mprint.cstyle import STYLE as STYLE
+
+MOMIR_IMAGE_PATH = 'assets/momir.jpg'
+
+
+def prompt():
+    mprint.cstyle.clear()
+    mprint.cstyle.logImage(MOMIR_IMAGE_PATH)
+    mprint.cstyle.logStyled('    MOMIR ASKS: What is X?', STYLE.GREEN)
 
 
 def momir(offline=False):
@@ -7,7 +16,8 @@ def momir(offline=False):
     print("Entering Momir Mode - Enter 'e' or 'escape' at any time to stop")
     try:
         while True:
-            n = input("Enter a number between 0 and 16: ")
+            prompt()
+            n = input("")
             if n == "e" or n == "exit":
                 break
             try:
@@ -18,5 +28,8 @@ def momir(offline=False):
             except ValueError:
                 print("Invalid input. If you would like to exit, enter 'e'.")
     except KeyboardInterrupt:
+        mprint.cstyle.clear()
+        mprint.cstyle.logStyled(
+            'MOMIR IS CONTENTED ...for now...', STYLE.GREEN)
         return mprint.closePrinter()
     mprint.closePrinter()

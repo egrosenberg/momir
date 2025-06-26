@@ -4,6 +4,7 @@ from .card import filterCards, getRandomCard, getCard
 from .get_image import getArt
 from .print_card import printCard
 from .printer import getPrinter, closePrinter
+from . import cstyle
 
 __all__ = ['fetchJson',
            'filterByMv',
@@ -14,4 +15,6 @@ __all__ = ['fetchJson',
            'closePrinter',
            'filterCards',
            'getRandomCard',
-           'getCard',]
+           'getCard',
+           'cstyle'
+           ]
