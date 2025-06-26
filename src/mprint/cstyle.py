@@ -14,9 +14,9 @@ class STYLE:
     ENDC = '\033[0m'
 
 
-def logStyled(text, style):
+def logStyled(text, style, end='\n'):
     os.system("")
-    print(f'{style}{text}{STYLE.ENDC}')
+    print(f'{style}{text}{STYLE.ENDC}', end=end)
 
 
 def logImage(path):

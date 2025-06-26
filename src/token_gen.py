@@ -2,6 +2,7 @@ from . import mprint
 from .mprint.constants import DEFAULT_CARD
 from random import randint
 import re
+from .mprint.cstyle import STYLE as STYLE
 
 MODIFIERS = [
     "Creature",
@@ -18,6 +19,18 @@ MODIFIERS = [
     "Snow",
     "Legendary"
 ]
+SE_SPLASH = 'assets/se.jpg'
+
+
+def displaySplash():
+    mprint.cstyle.clear()
+    mprint.cstyle.logImage(SE_SPLASH)
+    mprint.cstyle.logStyled('    YOU HAVE UNCOVERED ',
+                            STYLE.YELLOW + STYLE.BOLD, end='')
+    mprint.cstyle.logStyled('Sarpadian Empires, Vol. VII',
+                            STYLE.YELLOW + STYLE.BOLD + STYLE.UNDERLINE)
+    mprint.cstyle.logStyled(
+        'Enter token details or press ctrl+c to exit', STYLE.YELLOW)
 
 
 def splitTypes(types):
@@ -93,26 +106,30 @@ def createToken(cards, printer):
     count = False
     while not count:
         try:
-            count = int(input("How many to print?: "))
+            count = int(input("How many to print? (default 1): "))
         except TypeError:
-            print("please enter a numeral")
+            count = 1
 
-    for _n in range(0, count):
+    for i in range(0, count):
         # get art
         tokenArt = getTokenArt(cards, nonMod, modifiers)
 
         # print token
         mprint.printCard(printer, card, artOverride=tokenArt)
-
-        input("Tear token and press enter to continue...")
+        if count != i:
+            input("Tear token and press enter to continue...")
 
 
 def tokenCreator(offline=False):
-    printer = mprint.getPrinter()
-    cards = mprint.fetchJson(creaturesOnly=False, offline=offline)
-    print("Entering Token Mode - press ctrl+c to exit")
     try:
+        printer = mprint.getPrinter()
+        cards = mprint.fetchJson(creaturesOnly=False, offline=offline)
+        displaySplash()
         while True:
             createToken(cards, printer)
     except KeyboardInterrupt:
-        return mprint.closePrinter()
+        _ = 0
+    finally:
+        mprint.closePrinter()
+        mprint.cstyle.clear()
+        mprint.cstyle.logStyled('You abandon your reading...', STYLE.YELLOW)
