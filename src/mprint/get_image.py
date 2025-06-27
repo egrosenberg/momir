@@ -15,11 +15,10 @@ def raiseBlackPoint(img, level):
         return point + blackpoint
     return img.point(mod)
 
+
 # ------------------------------------------------------------
 # Downloads the art crop of a card and return it as a PIL Image
 # ------------------------------------------------------------
-
-
 def downloadArt(card):
     id = ""
     if "id" in card:
@@ -35,7 +34,10 @@ def downloadArt(card):
         print(f'ERROR: unable to fetch image for {card["name"]}')
         return False
     i = Image.open(io.BytesIO(request.content))
-    i.save(os.path.join(IMAGES_DIR, f'{id}.jpg'), quality=85)
+    try:
+        i.save(os.path.join(IMAGES_DIR, f'{id}.jpg'), quality=85)
+    except ValueError:
+        print(f'FAILED TO SAVE IMAGE: CARDNAME={card["name"]}')
     return i
 
 
