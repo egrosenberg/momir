@@ -1,4 +1,4 @@
-from __init__ import mirrorworks, tokenCreator, momir
+from __init__ import mirrorworks, tokenCreator, momir, discord
 from mprint import cstyle, closePrinter
 from mprint.cstyle import STYLE
 
@@ -15,6 +15,7 @@ ACTIVITES = {
     "1": momir,
     "2": mirrorworks,
     "3": tokenCreator,
+    "4": discord,
     "o": flipOffline,
     "q": lambda: True
 }
@@ -30,6 +31,8 @@ def prompt():
     cstyle.logStyled("2. The Mirrorworks", STYLE.BOLD + STYLE.YELLOW)
     cstyle.logStyled("3. Sarpadian Empires, Vol. VII",
                      STYLE.BOLD + STYLE.MAGENTA)
+    cstyle.logStyled("4. The Maelstrom Nexus",
+                     STYLE.BOLD + STYLE.RED)
     print("\n 'o'=offline, 'q'=quit")
 
 
