@@ -14,20 +14,20 @@ def match(a, b, partialMatch=False):
     return a == b
 
 
-def filterCards(cards, filterDict={}):
+def filterCards(cards, filterDict={}, invertFilter=False):
     def filterFn(card):
         for key, value in filterDict.items():
             if key not in card:
                 return False
             partialMatch = key in PARTIAL_MATCH_KEYS
             if not match(value, card[key], partialMatch):
-                return False
-        return True
+                return invertFilter
+        return not invertFilter
     return list(filter(filterFn, cards))
 
 
-def getRandomCard(cards, filterDict={}):
-    filtered = filterCards(cards, filterDict)
+def getRandomCard(cards, filterDict={}, invertFilter=False):
+    filtered = filterCards(cards, filterDict, invertFilter=invertFilter)
     count = len(filtered)
     if count == 0:
         print("NO CARD FOUND MATCHING FILTER")
@@ -35,7 +35,7 @@ def getRandomCard(cards, filterDict={}):
     return filtered[randint(0, count-1)]
 
 
-def getCard(cards, filterDict={}):
+def getCard(cards, filterDict={}, invertFilter=False):
     filtered = filterCards(cards, filterDict)
     if len(filtered) == 0:
         print("NO CARD FOUND MATCHING FILTER")
