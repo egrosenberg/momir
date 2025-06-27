@@ -11,13 +11,21 @@ IMAGES_DIR = 'img/'
 # Downloads the art crop of a card and return it as a PIL Image
 # ------------------------------------------------------------
 def downloadArt(card):
-    uri = card["image_uris"]["art_crop"]
+    id = ""
+    if "id" in card:
+        id = card["id"]
+    elif "illustration_id" in card:
+        id = card["illustration_id"]
+
+    uri = card.get("image_uris", {}).get("art_crop", False)
+    if not uri:
+        return False
     request = requests.get(uri, stream=True)
     if (request.status_code != 200):
         print(f'ERROR: unable to fetch image for {card["name"]}')
         return False
     i = Image.open(io.BytesIO(request.content))
-    i.save(os.path.join(IMAGES_DIR, f'{card["id"]}.jpg'), quality=85)
+    i.save(os.path.join(IMAGES_DIR, f'{id}.jpg'), quality=85)
     return i
 
 
@@ -26,7 +34,12 @@ def downloadArt(card):
 # ------------------------------------------------------------
 def getArt(card, maxSize=256):
     # check for existing local image
-    path = os.path.join(IMAGES_DIR, f'{card["id"]}.jpg')
+    id = ""
+    if "id" in card:
+        id = card["id"]
+    elif "illustration_id" in card:
+        id = card["illustration_id"]
+    path = os.path.join(IMAGES_DIR, f'{id}.jpg')
     cached = os.path.isfile(path)
     if cached:
         img = Image.open(path)
