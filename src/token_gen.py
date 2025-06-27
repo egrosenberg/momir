@@ -107,7 +107,7 @@ def createToken(cards, printer):
     while not count:
         try:
             count = int(input("How many to print? (default 1): "))
-        except TypeError:
+        except ValueError:
             count = 1
 
     for i in range(0, count):

@@ -27,7 +27,7 @@ def momir(offline=False):
                 mprint.printCard(printer, card)
             except ValueError:
                 print("Invalid input. If you would like to exit, enter 'e'.")
-    except KeyboardInterrupt:
+    finally:
         mprint.cstyle.clear()
         mprint.cstyle.logStyled(
             'MOMIR IS CONTENTED ...for now...', STYLE.GREEN)
