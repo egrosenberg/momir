@@ -1,5 +1,4 @@
 import mprint
-import time
 from rich.progress import Progress
 
 
@@ -8,7 +7,7 @@ def getArt(card):
         for face in card["card_faces"]:
             getArt(face)
     else:
-        mprint.getArt(card)
+        return mprint.getArt(card)
     return True
 
 
@@ -18,7 +17,6 @@ def downloadAllImages():
         task = p.add_task("Downloading Card Images...", total=len(cards))
         for card in cards:
             getArt(card)
-            time.sleep(0.11)
             p.update(task, advance=1)
 
 
