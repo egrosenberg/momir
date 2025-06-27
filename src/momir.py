@@ -1,5 +1,5 @@
-from . import mprint
-from .mprint.cstyle import STYLE as STYLE
+import mprint
+from mprint.cstyle import STYLE as STYLE
 
 MOMIR_IMAGE_PATH = 'assets/momir.jpg'
 

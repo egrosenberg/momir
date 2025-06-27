@@ -1,8 +1,8 @@
-from . import mprint
-from .mprint.constants import DEFAULT_CARD
+import mprint
+from mprint.constants import DEFAULT_CARD
 from random import randint
 import re
-from .mprint.cstyle import STYLE as STYLE
+from mprint.cstyle import STYLE as STYLE
 
 MODIFIERS = [
     "Creature",

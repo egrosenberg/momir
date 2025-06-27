@@ -1,6 +1,6 @@
-from .mprint.constants import DEFAULT_CARD
-from . import mprint
-from .mprint.cstyle import STYLE as STYLE
+from mprint.constants import DEFAULT_CARD
+import mprint
+from mprint.cstyle import STYLE as STYLE
 import re
 
 ILLEGAL_CHARS = r'[^a-zA-Z0-9]'
