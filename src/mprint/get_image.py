@@ -1,15 +1,25 @@
 import os
 import io
 import requests
-from PIL import Image
+from PIL import Image, ImageEnhance
 from .constants import DEFAULT_CARD
 
 IMAGES_DIR = 'img/'
 
 
+def raiseBlackPoint(img, level):
+    blackpoint = level*255
+
+    def mod(c):
+        point = c * (255-blackpoint)/255
+        return point + blackpoint
+    return img.point(mod)
+
 # ------------------------------------------------------------
 # Downloads the art crop of a card and return it as a PIL Image
 # ------------------------------------------------------------
+
+
 def downloadArt(card):
     id = ""
     if "id" in card:
@@ -57,4 +67,7 @@ def getArt(card, maxSize=256):
     ratio = min(maxSize/width, maxSize/height)
     size = (width*ratio, height*ratio)
     img.thumbnail(size)
+    img = raiseBlackPoint(img, 0.3)
+    img = ImageEnhance.Brightness(img).enhance(1.1)
+    img = ImageEnhance.Contrast(img).enhance(1.5)
     return img

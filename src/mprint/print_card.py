@@ -1,4 +1,5 @@
 from .get_image import getArt
+import time
 
 
 def printCard(printer, card, artOverride=None):
@@ -32,4 +33,6 @@ def printCard(printer, card, artOverride=None):
         if "power" in card and "toughness" in card:
             printer.textln(f'{card["power"]}/{card["toughness"]}')
         printer.set(bold=False, align="left")
-        printer.text('\n\n')
+        time.sleep(0.5)
+        printer.print_and_feed(2)
+        time.sleep(0.5)
