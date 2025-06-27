@@ -21,7 +21,7 @@ def logStyled(text, style, end='\n'):
 
 def logImage(path):
     os.system("")
-    output = climage.convert(path, is_unicode=True)
+    output = climage.convert(path, is_unicode=True, is_256color=True)
     print(output, end='')
 
 
