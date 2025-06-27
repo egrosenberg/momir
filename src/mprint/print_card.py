@@ -2,10 +2,10 @@ from .get_image import getArt
 import time
 
 
-def printCard(printer, card, artOverride=None):
+def printCard(printer, card, artOverride=None, asToken=False):
     if "card_faces" in card:
         for face in card["card_faces"]:
-            printCard(printer, face, artOverride=artOverride)
+            printCard(printer, face, artOverride=artOverride, asToken=asToken)
     else:
         img = artOverride or getArt(card, 256)
         printer.set(bold=True, align="left")
@@ -17,6 +17,8 @@ def printCard(printer, card, artOverride=None):
             printer.image(img, fragment_height=50)
             printer.textln()
         printer.set(align="left", underline=True)
+        if asToken:
+            printer.text("Token ")
         printer.textln(card["type_line"])
         printer.set(underline=False)
         if "oracle_text" in card and len(card["oracle_text"]):

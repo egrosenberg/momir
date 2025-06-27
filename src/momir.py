@@ -23,8 +23,7 @@ def momir(offline=False):
             try:
                 filter = {"cmc": int(n)}
                 card = mprint.getRandomCard(cards, filter)
-                card["type_line"] = "Token " + card["type_line"]
-                mprint.printCard(printer, card)
+                mprint.printCard(printer, card, asToken=True)
             except ValueError:
                 print("Invalid input. If you would like to exit, enter 'e'.")
     finally:
