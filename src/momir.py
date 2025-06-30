@@ -31,4 +31,3 @@ def momir(offline=False):
         mprint.cstyle.logStyled(
             'MOMIR IS CONTENTED ...for now...', STYLE.GREEN)
         return mprint.closePrinter()
-    mprint.closePrinter()
