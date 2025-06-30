@@ -1,4 +1,3 @@
-from mprint.constants import DEFAULT_CARD
 import mprint
 from mprint.cstyle import STYLE as STYLE
 import re
@@ -41,15 +40,16 @@ def getSimilarlyNamed(cards, name):
 
 
 def getNamedCard(cards, name):
-    print(name)
     exactMatch = getExactlyNamed(cards, name)
     if exactMatch:
         return exactMatch
     partialMatches = getSimilarlyNamed(cards, name)
-    if not len(partialMatches) or len(partialMatches) > MAX_MATCHES:
-        return DEFAULT_CARD
+    if not len(partialMatches):
+        print(f'No card found with name "{name}"')
+        return False
     if len(partialMatches) > MAX_MATCHES:
         print(f'More than {MAX_MATCHES} matches, please try again.')
+        return False
     if len(partialMatches) == 1:
         return partialMatches[0]
     # Narrow down result
@@ -87,9 +87,8 @@ def mirrorworks(offline=False):
         displaySplash()
         while True:
             card = promptCardToPrint(cards)
-            if not card:
-                break
-            mprint.printCard(printer, card)
+            if card:
+                mprint.printCard(printer, card)
     except KeyboardInterrupt:
         _ = 0
     finally:
