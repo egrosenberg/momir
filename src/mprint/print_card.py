@@ -11,7 +11,8 @@ def printCard(printer, card, artOverride=None, asToken=False):
     else:
         img = artOverride or getArt(card, 256)
         for key in CARD_FIELDS:
-            card[key] = card[key].replace("—", "-")
+            if key in card:
+                card[key] = card[key].replace("—", "-")
         printer.set(bold=True, align="left")
         printer.textln(card["name"])
         printer.set(bold=False, align="right")

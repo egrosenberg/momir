@@ -46,7 +46,7 @@ def getNamedCard(cards, name):
     if exactMatch:
         return exactMatch
     partialMatches = getSimilarlyNamed(cards, name)
-    if not len(partialMatches):
+    if not len(partialMatches) or len(partialMatches) > MAX_MATCHES:
         return DEFAULT_CARD
     if len(partialMatches) > MAX_MATCHES:
         print(f'More than {MAX_MATCHES} matches, please try again.')
