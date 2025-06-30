@@ -1,6 +1,8 @@
 from .get_image import getArt
 import time
 
+CARD_FIELDS = ["name", "mana_cost", "type_line", "oracle_text", "flavor_text"]
+
 
 def printCard(printer, card, artOverride=None, asToken=False):
     if "card_faces" in card:
@@ -8,6 +10,8 @@ def printCard(printer, card, artOverride=None, asToken=False):
             printCard(printer, face, artOverride=artOverride, asToken=asToken)
     else:
         img = artOverride or getArt(card, 256)
+        for key in CARD_FIELDS:
+            card[key] = card[key].replace("—", "-")
         printer.set(bold=True, align="left")
         printer.textln(card["name"])
         printer.set(bold=False, align="right")
