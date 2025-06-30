@@ -5,6 +5,7 @@ import datetime
 
 PREFERRED_JSON = 'oracle_cards'
 JSON_PATH = 'json/cards.json'
+CACHE_SIZE = 3
 
 loadedCards = None
 
@@ -89,15 +90,20 @@ def latestCards(bulkInfo):
 
 def fetchJson(creaturesOnly=True, unfiltered=False, offline=False):
     global loadedCards
+
+    scryfallCards = []
+
+    # use cached cards if they exist
     if loadedCards:
-        return loadedCards
+        scryfallCards = loadedCards
+    else:
+        print("Loading card JSON...")
+        # get bulk information
+        bulkInfo = False if offline else fetchBulkInfo()
 
-    print("Loading card JSON...")
-    # get bulk information
-    bulkInfo = fetchBulkInfo() if not offline else False
-
-    # Get cards json
-    scryfallCards = latestCards(bulkInfo)
+        # Get cards json
+        scryfallCards = latestCards(bulkInfo)
+        loadedCards = scryfallCards
 
     if unfiltered:
         return scryfallCards
@@ -121,7 +127,7 @@ def fetchJson(creaturesOnly=True, unfiltered=False, offline=False):
         return False
 
     def finalFilter(card):
-        if creaturesOnly and "Creature" not in card["type_line"]:
+        if creaturesOnly and ("Creature" not in card["type_line"]):
             return False
         # Filter out non-standard frame cards (these are too hard to print)
         if card["layout"] != "normal":
@@ -129,6 +135,5 @@ def fetchJson(creaturesOnly=True, unfiltered=False, offline=False):
         return inPaper(card) and notMultiVersioned(card)
 
     cards = list(filter(finalFilter, scryfallCards))
-    loadedCards = cards
     # Return json object
     return cards
