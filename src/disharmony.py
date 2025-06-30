@@ -18,6 +18,8 @@ def discord(offline=False):
     print("Entering the maelstrom....")
     cards = mprint.fetchJson(unfiltered=True, offline=offline)
     cards = mprint.filterCards(cards, {"type_line": "land"}, invertFilter=True)
+    cards = mprint.filterCards(
+        cards, {"type_line": "token"}, invertFilter=True)
     try:
         while True:
             prompt()
