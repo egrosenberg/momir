@@ -65,7 +65,7 @@ def getNamedCard(cards, name):
             index = int(input("Enter the number of the card you seek...\n"))
             if (index >= len(partialMatches) or index < 0):
                 print("invalid number :(")
-        except TypeError:
+        except TypeError or ValueError:
             print("Please enter a number next time :/")
     return partialMatches[index]
 
