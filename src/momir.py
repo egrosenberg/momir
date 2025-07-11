@@ -1,5 +1,6 @@
 import mprint
 from mprint.cstyle import STYLE as STYLE
+from mprint.constants import MOMIR_AVATAR
 
 MOMIR_IMAGE_PATH = 'assets/momir.jpg'
 
@@ -14,6 +15,10 @@ def momir(offline=False):
     printer = mprint.getPrinter()
     cards = mprint.fetchJson(creaturesOnly=True, offline=offline)
     print("Entering Momir Mode - Enter 'e' or 'escape' at any time to stop")
+    print("Printing player 1 avatar...")
+    mprint.printCard(printer, MOMIR_AVATAR)
+    input("Press enter to print player 2 avatar...")
+    mprint.printCard(printer, MOMIR_AVATAR)
     try:
         while True:
             prompt()
