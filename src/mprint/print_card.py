@@ -39,6 +39,9 @@ def printCard(printer, card, artOverride=None, asToken=False):
         printer.set(bold=True, align="right")
         if "power" in card and "toughness" in card:
             printer.textln(f'{card["power"]}/{card["toughness"]}')
+        if "life_modifier" in card and "hand_modifier" in card:
+            printer.textln(f'Hand Size: {card["hand_modifier"]}')
+            printer.textln(f'Starting Modifier: {card["hand_modifier"]}')
         printer.set(bold=False, align="left")
         time.sleep(0.5)
         printer.print_and_feed(2)
