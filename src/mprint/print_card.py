@@ -43,7 +43,7 @@ def printCard(printer, card, artOverride=None, asToken=False):
             printer.set(align="left")
             printer.textln()
             printer.textln(f'Hand Size: {card["hand_modifier"]}')
-            printer.textln(f'Starting Life: {card["hand_modifier"]}')
+            printer.textln(f'Starting Life: {card["life_modifier"]}')
         printer.set(bold=False, align="left")
         time.sleep(0.5)
         printer.print_and_feed(2)
