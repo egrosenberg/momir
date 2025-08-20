@@ -35,7 +35,7 @@ MOMIR_AVATAR = {
     "mana_cost": "",
     "cmc": 0,
     "type_line": "Vanguard",
-    "oracle_text": ("\{X\}, Discard a card: Create a token that's a copy"
+    "oracle_text": ("{X}, Discard a card: Create a token that's a copy"
                     "of a creature card with mana value X chosen at random"
                     "Activate only as a sorcery and only once each turn."),
     "life_modifier": "+4",
