@@ -1,5 +1,5 @@
 import os
-import climage
+from climage import convert, color_to_flags, color_types
 
 
 class STYLE:
@@ -21,7 +21,8 @@ def logStyled(text, style, end='\n'):
 
 def logImage(path):
     os.system("")
-    output = climage.convert(path, is_unicode=True, is_256color=True)
+    output = convert(path, is_unicode=True, **
+                     color_to_flags(color_types.truecolor))
     print(output, end='')
 
 
