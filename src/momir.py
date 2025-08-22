@@ -15,10 +15,12 @@ def momir(offline=False):
     printer = mprint.getPrinter()
     cards = mprint.fetchJson(creaturesOnly=True, offline=offline)
     print("Entering Momir Mode - Enter 'e' or 'escape' at any time to stop")
-    print("Printing player 1 avatar...")
-    mprint.printCard(printer, MOMIR_AVATAR)
-    input("Press enter to print player 2 avatar...")
-    mprint.printCard(printer, MOMIR_AVATAR)
+    i = input("Print avatars? 1 = yes, 0 = no.")
+    if i == "1":
+        print("Printing player 1 avatar...")
+        mprint.printCard(printer, MOMIR_AVATAR)
+        input("Press enter to print player 2 avatar...")
+        mprint.printCard(printer, MOMIR_AVATAR)
     try:
         while True:
             prompt()
